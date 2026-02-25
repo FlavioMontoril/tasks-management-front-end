@@ -3,9 +3,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 
 interface TableTaskProps {
     tasks: Task[],
+    onSelect: (task: Task) => void;
 }
 
-export const TableTask = ({ tasks }: TableTaskProps) => {
+export const TableTask = ({ tasks, onSelect }: TableTaskProps) => {
+
 
     return (
         <Table className="w-full h-10 border border-border rounded-xl overflow-hidden">
@@ -20,7 +22,15 @@ export const TableTask = ({ tasks }: TableTaskProps) => {
             </TableHeader>
             <TableBody>
                 {tasks.map((item) =>
-                    <TableRow className="h-16 border-white" key={item.id}>
+                    <TableRow
+                        key={item.id}
+                        className="h-16 border-white cursor-pointer"
+                        onClick={() => {
+                            console.log("CLICOU", item)
+                            onSelect(item)
+                        }
+                        }
+                    >
                         <TableCell className="font-medium">{item.codigo}</TableCell>
                         <TableCell className="pl-10">{item.nome}</TableCell>
                         <TableCell>{item.dataCriacao}</TableCell>
