@@ -2,17 +2,36 @@ import { tasks } from "../mock/tasks"
 import { CheckCircle2, Clock, XCircle, ListTodo } from "lucide-react"
 import { DashboardCard } from "../Components/dashboard-card"
 import { StatusBadge } from "../Components/status-badge"
+import type { ElementType } from "react"
 
-function countByStatus(status: string) {
-    return tasks.filter(t => t.status === status).length
+
+interface CardProps {
+    id: number,
+    title: string,
+    value: number,
+    icon: ElementType,
+    color?: "blue" | "green" | "yellow" | "red",
 }
-
 export default function Dashboard() {
+
+    function countByStatus(status: string) {
+        return tasks.filter(t => t.status === status).length
+    }
+
     const total = tasks.length
     const open = countByStatus("Open")
     const progress = countByStatus("In Progress")
     const done = countByStatus("Done")
     const canceled = countByStatus("Canceled")
+
+
+    const cardProps: CardProps[] = [
+        { id: 1, title: "Total", value: total, icon: ListTodo },
+        { id: 2, title: "Open", value: open, icon: Clock, color: "blue" },
+        { id: 3, title: "In Progress", value: progress, icon: Clock, color: "yellow", },
+        { id: 4, title: "Done", value: done, icon: CheckCircle2, color: "green" },
+        { id: 5, title: "Canceled", value: canceled, icon: XCircle, color: "red" },
+    ]
 
     const recentTasks = [...tasks]
         .sort((a, b) => b.dataCriacao.localeCompare(a.dataCriacao))
@@ -32,44 +51,19 @@ export default function Dashboard() {
             {/* Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
-                <DashboardCard
-                    title="Total"
-                    value={total}
-                    icon={<ListTodo />}
-                />
-
-                <DashboardCard
-                    title="Open"
-                    value={open}
-                    icon={<Clock />}
-                    color="blue"
-                />
-
-                <DashboardCard
-                    title="In Progress"
-                    value={progress}
-                    icon={<Clock />}
-                    color="yellow"
-                />
-
-                <DashboardCard
-                    title="Done"
-                    value={done}
-                    icon={<CheckCircle2 />}
-                    color="green"
-                />
-
-                <DashboardCard
-                    title="Canceled"
-                    value={canceled}
-                    icon={<XCircle />}
-                    color="red"
-                />
+                {cardProps.map(card => (
+                    <DashboardCard
+                        key={card.id}
+                        title={card.title}
+                        value={card.value}
+                        icon={card.icon}
+                        color={card.color} />
+                ))}
 
             </div>
 
             {/* Recent tasks */}
-            <div className="bg-background border-none rounded-xl p-4">
+            <div className="bg-slate-100 border-none rounded-xl p-4">
 
                 <h2 className="font-semibold mb-4">
                     Tarefas recentes

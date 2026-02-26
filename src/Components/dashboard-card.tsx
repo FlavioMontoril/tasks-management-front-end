@@ -1,7 +1,9 @@
+import type { ElementType } from "react"
+
 interface Props {
     title: string
     value: number
-    icon: React.ReactNode
+    icon: ElementType
     color?: "blue" | "green" | "yellow" | "red"
 }
 
@@ -12,15 +14,10 @@ const colors = {
     red: "text-red-500 bg-red-500/10",
 }
 
-export function DashboardCard({
-    title,
-    value,
-    icon,
-    color
-}: Props) {
+export function DashboardCard({ title, value, icon: Icon, color }: Props) {
 
     return (
-        <div className="bg-background border-none rounded-xl p-4 flex items-center justify-between hover:shadow-sm transition">
+        <div className={`border-none rounded-xl p-4 flex items-center justify-between hover:shadow-sm transition ${color ? colors[color] : "bg-slate-100"}`}>
 
             <div>
 
@@ -38,7 +35,7 @@ export function DashboardCard({
         p-2 rounded-lg
         ${color ? colors[color] : "bg-muted"}
       `}>
-                {icon}
+                <Icon />
             </div>
 
         </div>
