@@ -69,7 +69,7 @@ export default function Dashboard() {
             </div>
 
             {/* Recent tasks */}
-            <div className="bg-background border rounded-xl p-4">
+            <div className="bg-background border-none rounded-xl p-4">
 
                 <h2 className="font-semibold mb-4">
                     Tarefas recentes
@@ -80,7 +80,7 @@ export default function Dashboard() {
                     {recentTasks.map(task => (
                         <div
                             key={task.id}
-                            className="flex items-center justify-between p-3 rounded-lg border hover:bg-muted/50 transition"
+                            className="flex items-center justify-between p-3 rounded-lg shadow-2xl hover:bg-gray-200 transition"
                         >
 
                             <div>

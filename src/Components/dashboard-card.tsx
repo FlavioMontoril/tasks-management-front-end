@@ -20,7 +20,7 @@ export function DashboardCard({
 }: Props) {
 
     return (
-        <div className="bg-background border rounded-xl p-4 flex items-center justify-between hover:shadow-sm transition">
+        <div className="bg-background border-none rounded-xl p-4 flex items-center justify-between hover:shadow-sm transition">
 
             <div>
 
