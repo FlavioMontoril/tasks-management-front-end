@@ -1,78 +1,89 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface StopWatchProps {
-    id: string;
-    time: number; // em SEGUNDOS
-}
-
-interface StopWatchStore {
-    taskId: string | null;
-    initialTime: number;       // segundos
-    runningTime: number;       // segundos, pode ser negativo
-    isView: boolean;
+export interface ClockProps {
+    activeIssueId: string | null;
+    initialTime: number;
+    elapsedSeconds: number;
     isRunning: boolean;
-    startedAt: number | null;  // timestamp ms (Date.now())
+    startDateTime: number | null;
 
-    setToggleClock: (data: StopWatchProps) => void;
-    setRunningTime: (timeRunning: number | ((prev: number) => number)) => void;
-    setIsRunning: (running: boolean) => void;
+    setActiveIssue: (issueKey: string, initialTime: number) => void;
+    startTimer: () => void;
+    pauseTimer: () => void;
+    tick: () => void;
     reset: () => void;
 }
 
-export const useStopWatch = create<StopWatchStore>()(
+export const useStopWatch = create<ClockProps>()(
     persist(
-        (set) => ({
-            taskId: null,
+        (set, get) => ({
+            activeIssueId: null,
             initialTime: 0,
-            runningTime: 0,
-            isView: false,
+            elapsedSeconds: 0,
             isRunning: false,
-            startedAt: null,
+            startDateTime: null,
 
-            setToggleClock: (data: StopWatchProps) =>
+            setActiveIssue: (issueKey: string, initialTime: number) =>
                 set({
-                    taskId: data.id,
-                    initialTime: data.time,
-                    runningTime: data.time,
-                    isView: !!data.id,
+                    activeIssueId: issueKey,
+                    initialTime,
+                    elapsedSeconds: 0,
+                    startDateTime: null,
                     isRunning: false,
-                    startedAt: null,
                 }),
 
-            setRunningTime: (time) =>
-                set((state) => ({
-                    runningTime:
-                        typeof time === "function" ? time(state.runningTime) : time,
-                })),
+            startTimer: () => {
+                const now = Date.now();
+                const { activeIssueId } = get();
+                if (!activeIssueId) return;
 
-            setIsRunning: (running: boolean) =>
                 set({
+                    startDateTime: now,
+                    isRunning: true,
+                    elapsedSeconds: 0,
+                });
+            },
 
-                    isRunning: running,
-                    startedAt: running ? Date.now() : null,
-                }),
+            tick: () => {
+                const { startDateTime, isRunning } = get();
+                if (isRunning && startDateTime) {
+                    const elapsed = Math.floor((Date.now() - startDateTime) / 1000);
+                    set({ elapsedSeconds: elapsed });
+                }
+            },
+
+            pauseTimer: () => {
+                const { startDateTime, isRunning } = get();
+
+                if (isRunning && startDateTime) {
+                    // const elapsed = Math.floor((Date.now() - startDateTime) / 1000);
+                    set({
+                        activeIssueId: null,
+                        initialTime: 0,
+                        elapsedSeconds: 0,
+                        isRunning: false,
+                    });
+                }
+            },
 
             reset: () =>
                 set({
-                    taskId: null,
-                    initialTime: 0,
-                    runningTime: 0,
-                    isView: false,
+                    activeIssueId: null,
                     isRunning: false,
-                    startedAt: null,
+                    elapsedSeconds: 0,
+                    startDateTime: null,
                 }),
         }),
         {
-            name: "stopwatch-storage",
+            name: "clock-storage",
             partialize: (state) => ({
-                taskId: state.taskId,
+                activeIssueId: state.activeIssueId,
                 initialTime: state.initialTime,
-                runningTime: state.runningTime,
-                isView: state.isView,
+                elapsedSeconds: state.elapsedSeconds,
+                startDateTime: state.startDateTime,
                 isRunning: state.isRunning,
-                startedAt: state.startedAt,
             }),
-        }
-    )
+        },
+    ),
 );
