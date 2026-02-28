@@ -17,13 +17,13 @@ type DatePickerWithRangeProps = {
 export function DatePickerWithRange({ value, onChange }: DatePickerWithRangeProps) {
 
     return (
-        <Field className="mx-auto w-60">
+        <Field className="mx-auto w-52">
             <Popover>
                 <PopoverTrigger
                     render={
                         <Button
                             variant="outline"
-                            className="justify-start px-2.5 font-normal"
+                            className="justify-start px-2.5 h-7 font-normal"
                         >
                             <CalendarIcon />
                             {value?.from ? (

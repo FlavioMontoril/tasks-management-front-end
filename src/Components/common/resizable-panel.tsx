@@ -3,7 +3,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "../ui/resizable";
-import { Search, Timer } from "lucide-react";
+import { Search } from "lucide-react";
 
 import { useEffect, useState } from "react";
 import { Text } from "./text";
@@ -17,8 +17,7 @@ import { PaginationDemo } from "./pagination-demo";
 import { useFilteredPagination } from "../../hooks/useFilteredPagination";
 import type { Task } from "../../mock/tasks";
 import TaskNode from "../task-node";
-import { FloatingWindow } from "./floating-window";
-import { motion } from "framer-motion";
+
 export function ResizablePanelView() {
   const {
     search,
@@ -31,6 +30,7 @@ export function ResizablePanelView() {
     totalPages,
   } = useFilteredPagination();
 
+
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -39,12 +39,6 @@ export function ResizablePanelView() {
     return saved ? saved === "table" : true;
   });
 
-  const [openWindow, setOpenWindow] = useState(false);
-  const [minimized, setMinimized] = useState(false);
-
-  // const handleSelectTask = (task: Task) => {
-  //     setSelectedTask(task)
-  // }
 
   const handleToggle = (value: boolean) => {
     setIsTableView(value);
@@ -63,19 +57,10 @@ export function ResizablePanelView() {
   return (
     <ResizablePanelGroup
       orientation="horizontal"
-      className="min-h-50 max-w-md rounded-lg md:min-w-450"
+      className="min-h-50 max-w-md rounded-lg md:min-w-350"
     >
       <ResizablePanel defaultSize={selectedTask ? 40 : 100}>
-        <motion.button
-          onClick={() => {
-            setOpenWindow(true);
-            setMinimized(false);
-          }}
-          className="px-3 py-3 bg-black text-white rounded-full hover:bg-black"
-        >
-          <Timer/>
-        </motion.button>
-        <div className="flex h-full p-6">
+        <div className="flex h-full ">
           <div className="flex flex-col space-y-20 w-full">
             <div className="flex justify-between items-center">
               <Text
@@ -94,9 +79,9 @@ export function ResizablePanelView() {
                   <Input
                     onChange={handleSearch}
                     value={search}
-                    className="w-100 h-8 pl-7 bg-background"
+                    className="w-70 h-7 pl-7 bg-background"
                     type="text"
-                    placeholder="Pesquise a tarefa pelo codigo ou nome..."
+                    placeholder="Pesquise pelo codigo ou nome..."
                   />
                 </div>
                 <div className="ml-5 text-muted-foreground">
@@ -107,7 +92,7 @@ export function ResizablePanelView() {
                 </div>
               </div>
               {isTableView ? (
-                <div className="max-h-140 mb-16 overflow-y-auto pr-1">
+                <div className="max-h-90 mb-12 overflow-y-auto pr-1">
                   {isLoading ? (
                     <SkeletonTable />
                   ) : (
@@ -145,12 +130,6 @@ export function ResizablePanelView() {
           </ResizablePanel>
         </>
       )}
-      <FloatingWindow
-        open={openWindow}
-        minimized={minimized}
-        onClose={() => setOpenWindow(false)}
-        onToggleMinimize={() => setMinimized((prev) => !prev)}
-      />
     </ResizablePanelGroup>
   );
 }

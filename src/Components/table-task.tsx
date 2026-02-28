@@ -3,7 +3,6 @@ import type { Task } from "../mock/tasks"
 import { useStopWatch } from "../store/useStopWatch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
 import { Button } from "./ui/button";
-import { StopWatch } from "./stopwtach";
 
 type TableTaskProps = {
     tasks: Task[],
@@ -12,21 +11,18 @@ type TableTaskProps = {
 
 
 export const TableTask = ({ tasks, onSelect }: TableTaskProps) => {
-    const { setToggleClock, isView, taskId } = useStopWatch()
-
-    console.log("isView", isView)
+    const { setActiveIssue, isRunning, activeIssueId } = useStopWatch()
 
     const handleSelectTask = (e: React.MouseEvent<HTMLButtonElement>, id: string, time: number) => {
-        console.log("Chamou função", id, time)
         e.stopPropagation()
-        setToggleClock({ id: id, time: time })
+        setActiveIssue(id, time)
     }
 
     return (
         <Table className="w-full border border-border rounded-xl overflow-hidden">
             <TableHeader>
                 <TableRow className="h-14 bg-muted border-white">
-                    <TableHead className="w-10 text-xl font-extrabold">Código</TableHead>
+                    <TableHead className="w-10 text-xl font-bold">Código</TableHead>
                     <TableHead className="pl-10">Nome</TableHead>
                     <TableHead>Criado em</TableHead>
                     <TableHead className="w-37.5">Status</TableHead>
@@ -38,7 +34,7 @@ export const TableTask = ({ tasks, onSelect }: TableTaskProps) => {
                 {tasks.map((item) =>
                     <TableRow
                         key={item.id}
-                        className="h-16 border-white cursor-pointer"
+                        className={activeIssueId && activeIssueId === item.id ? "bg-gray-50 border-l-4 border-blue-400 opacity-25 cursor-pointer border-b-white " : "h-12 border-white cursor-pointer"}
                         onClick={() => { onSelect(item) }
                         }
                     >
@@ -47,17 +43,13 @@ export const TableTask = ({ tasks, onSelect }: TableTaskProps) => {
                         <TableCell>{item.dataCriacao}</TableCell>
                         <TableCell>{item.status}</TableCell>
                         <TableCell className="w-45">
-                            <div className="flex justify-center items-center gap-2 min-h-10">
-                                {isView && item.id === taskId ? (
-                                    <StopWatch />
-                                ) : (
-                                    <Button
-                                        variant={"ghost"}
-                                        onClick={(e) => handleSelectTask(e, item.id, item.timeSeconds)} >
-                                        <Timer />
-                                    </Button>
-                                )}
-                            </div>
+                            {!isRunning && (
+                                <Button
+                                    variant={"ghost"}
+                                    onClick={(e) => handleSelectTask(e, item.id, item.timeSeconds)} >
+                                    <Timer color="gray" />
+                                </Button>
+                            )}
                         </TableCell>
 
                     </TableRow>
