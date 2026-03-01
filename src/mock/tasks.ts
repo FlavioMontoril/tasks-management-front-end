@@ -33,6 +33,6 @@ export const tasks: Task[] = [
     { id: "21", codigo: "TASK-021", nome: "Deploy da aplicação front-end", dataCriacao: "2026-02-12", status: "In Progress", timeSeconds: 10800 },
     { id: "22", codigo: "TASK-022", nome: "Deploy", dataCriacao: "2026-01-03", status: "Done", timeSeconds: 7200 },
     { id: "23", codigo: "TASK-023", nome: "Dayli", dataCriacao: "2025-12-31", status: "Canceled", timeSeconds: 10800 },
-
-
+    { id: "24", codigo: "TASK-024", nome: "Criar cronometro", dataCriacao: "2026-01-03", status: "Done", timeSeconds: 60 },
+    { id: "25", codigo: "TASK-025", nome: "Criar dialog cronometro", dataCriacao: "2026-01-03", status: "Done", timeSeconds: 60 },
 ];

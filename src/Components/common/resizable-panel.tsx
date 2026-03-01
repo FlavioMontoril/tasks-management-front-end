@@ -103,7 +103,7 @@ export function ResizablePanelView() {
                   )}
                 </div>
               ) : (
-                <div className="max-h-140 mb-16 overflow-y-auto pr-1">
+                <div className="max-h-90 mb-12 overflow-y-auto pr-1">
                   <AccordionTask tasks={paginatedData} />
                 </div>
               )}

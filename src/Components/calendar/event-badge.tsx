@@ -25,12 +25,16 @@ export function TaskBadge({ task }: EventBadgeProps) {
         <div
             title=""
             className={`px-1.5 py-0.5 rounded text-xs truncate flex flex-col ${getColor()}`}>
-            <div className="flex gap-3 justify-center items-center">
-                <span>{task.codigo}</span>
-                <span> {task.status}</span>
-                <span title={task.nome}>
-                    <Info className="ml-14 cursor-pointer" size={11} />
-                </span>
+            <div className="flex gap-3 justify-between items-center">
+                <div>
+                    <span>{task.codigo} - </span>
+                    <span> {task.status}</span>
+                </div>
+                <div>
+                    <span title={task.nome}>
+                        <Info className="cursor-pointer" size={11} />
+                    </span>
+                </div>
             </div>
 
         </div>

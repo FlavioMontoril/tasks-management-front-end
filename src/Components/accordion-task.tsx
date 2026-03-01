@@ -3,7 +3,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./
 
 export function AccordionTask({ tasks }: { tasks: Task[] }) {
     return (
-        <Accordion type="single" collapsible className="w-full rounded-xl flex flex-col gap-2  overflow-hidden">
+        <Accordion type="single" collapsible className="w-full rounded-xl flex flex-col gap-2 overflow-hidden">
             {tasks.map((item) => (
                 <AccordionItem className=" border-gray-300" key={item.id} value={item.id}>
                     <AccordionTrigger className="px-4 h-14 bg-background hover:bg-muted/50">
