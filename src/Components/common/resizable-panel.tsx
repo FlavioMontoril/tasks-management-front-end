@@ -52,12 +52,10 @@ export function ResizablePanelView() {
     return () => clearTimeout(timer);
   }, [paginatedData]);
 
-  console.log("Task Selected", selectedTask);
-
   return (
     <ResizablePanelGroup
       orientation="horizontal"
-      className="min-h-50 max-w-md rounded-lg md:min-w-350"
+      className="min-h-50 w-full rounded-lg md:min-w-310 "
     >
       <ResizablePanel defaultSize={selectedTask ? 40 : 100}>
         <div className="flex h-full ">
@@ -92,7 +90,7 @@ export function ResizablePanelView() {
                 </div>
               </div>
               {isTableView ? (
-                <div className="max-h-90 mb-12 overflow-y-auto pr-1">
+                <div className="max-h-90 mb-12 overflow-y-auto pr-1 ">
                   {isLoading ? (
                     <SkeletonTable />
                   ) : (

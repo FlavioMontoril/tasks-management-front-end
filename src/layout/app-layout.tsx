@@ -1,14 +1,18 @@
 import { Outlet } from "react-router-dom"
-import { Header } from "./header"
 import { useStopWatch } from "../store/useStopWatch";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MoveUp } from "lucide-react";
+import { ArrowBigRightDash, MoveUp } from "lucide-react";
 import { formatTimeSeconds } from "../lib/format-time-seconds";
 import { DialogStopwatchButton } from "../Components/common/dialog-stopwatch-button";
+import { SidebarInset } from "../Components/ui/sidebar";
+import { AppSidebar } from "./AppSidebar";
+import { useSidebar } from "../Components/ui/sidebar"
+import { Separator } from "../Components/ui/separator";
 
 export default function AppLayout() {
 
+    const { open, setOpen } = useSidebar()
     const { activeIssueId, elapsedSeconds, isRunning, tick } = useStopWatch()
     // const [minimized, setMinimized] = useState(false);
     const [openWindow, setOpenWindow] = useState(false);
@@ -45,52 +49,69 @@ export default function AppLayout() {
     }, [isRunning, tick]);
 
     return (
-        <div className="flex h-screen bg-gray-300 overflow-hidden">
-            {/* <SideBar /> */}
-            <div className=" flex-1 flex flex-col">
-                <Header />
-                <main className="flex-1 px-20.5 w-full">
-                    <div className=" py-10 ">
-                        <Outlet />
-                    </div>
-                </main>
-                <div>
-                    {activeIssueId && (
-                        <motion.button
-                            drag
-                            dragMomentum={false}
-                            onPointerDown={(e) => {
-                                setDragStart({ x: e.clientX, y: e.clientY });
-                            }}
-                            onPointerUp={(e) => {
-                                if (!dragStart) return;
-
-                                const dx = e.clientX - dragStart.x;
-                                const dy = e.clientY - dragStart.y;
-
-                                const distance = Math.hypot(dx, dy);
-
-                                if (distance < 6) {
-                                    setOpenWindow(true);
-                                    // setMinimized(false);
-                                }
-                            }}
-                            className="fixed z-50 bottom-155 left-300 px-3 py-3 bg-black text-white cursor-grab active:cursor-grabbing rounded-full"
+        <>
+            <AppSidebar />
+            <SidebarInset
+                className="min-h-screen w-full flex flex-col bg-gray-900 transition-all duration-900 ease-in-out"
+            >
+                <div className="flex items-center h-10">
+                    <Separator orientation="vertical" className="bg-muted-foreground !h-7" />
+                    <div>
+                        <button
+                            title={open ? "Ocultar Menu" : "Exibir Menu"}
+                            onClick={() => setOpen(!open)}
+                            className="text-muted-foreground flex items-center ml-3 cursor-pointer hover:text-white"
                         >
-                            <span className="flex gap-2 items-center font-mono text-sm tabular-nums tracking-tight text-emerald-400">
-                                <MoveUp size={14} />
-                                {formatTimeSeconds(elapsedSeconds)}
-                            </span>
-                        </motion.button>
-
-                    )}
-
-                    <DialogStopwatchButton
-                        isView={openWindow}
-                        onChangeView={setOpenWindow}
-                    />
+                            <ArrowBigRightDash
+                                size={20}
+                                className={`
+                                 transform-gpu
+                                 transition-transform
+                                 duration-500
+                                 ease-in-out
+                                 ${open ? "rotate-180" : "rotate-0"}    `}
+                            />
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </div>
-    )
+
+                <main className="flex-1 px-3 py-10 bg-slate-300 rounded-tl-2xl">
+                    <Outlet />
+                </main>
+
+                {activeIssueId && (
+                    <motion.button
+                        drag
+                        dragMomentum={false}
+                        onPointerDown={(e) => {
+                            setDragStart({ x: e.clientX, y: e.clientY });
+                        }}
+                        onPointerUp={(e) => {
+                            if (!dragStart) return;
+
+                            const dx = e.clientX - dragStart.x;
+                            const dy = e.clientY - dragStart.y;
+
+                            const distance = Math.hypot(dx, dy);
+
+                            if (distance < 6) {
+                                setOpenWindow(true);
+                            }
+                        }}
+                        className="fixed z-50 bottom-170 right-50 px-3 py-3 bg-black text-white cursor-grab active:cursor-grabbing rounded-full"
+                    >
+                        <span className="flex gap-2 items-center font-mono text-sm tabular-nums tracking-tight text-emerald-400">
+                            <MoveUp size={14} />
+                            {formatTimeSeconds(elapsedSeconds)}
+                        </span>
+                    </motion.button>
+                )}
+
+                <DialogStopwatchButton
+                    isView={openWindow}
+                    onChangeView={setOpenWindow}
+                />
+            </SidebarInset>
+        </>
+    );
 }

@@ -38,7 +38,7 @@ export default function Dashboard() {
         .slice(0, 5)
 
     return (
-        <div className="flex flex-col gap-6 p-6">
+        <div className="flex flex-col gap-3 w-full h-full overflow-hidden">
 
             {/* Header */}
             <div>
@@ -49,7 +49,7 @@ export default function Dashboard() {
             </div>
 
             {/* Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2">
 
                 {cardProps.map(card => (
                     <DashboardCard
@@ -63,18 +63,18 @@ export default function Dashboard() {
             </div>
 
             {/* Recent tasks */}
-            <div className="bg-slate-100 border-none rounded-xl p-4">
+            <div className="bg-muted/50 rounded-xl p-3 w-full flex flex-col flex-1 overflow-hidden">
 
                 <h2 className="font-semibold mb-4">
                     Tarefas recentes
                 </h2>
 
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3 overflow-hidden">
 
                     {recentTasks.map(task => (
                         <div
                             key={task.id}
-                            className="flex items-center justify-between p-3 rounded-lg shadow-2xl hover:bg-gray-200 transition"
+                            className="flex items-center justify-between p-3 rounded-lg shadow-2xs bg-gray-100 hover:bg-gray-200 transition"
                         >
 
                             <div>

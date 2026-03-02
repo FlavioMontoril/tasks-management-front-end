@@ -5,8 +5,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from ".
 import { Button } from "./ui/button";
 
 type TableTaskProps = {
-    tasks: Task[],
-    onSelect: (task: Task) => void;
+    tasks?: Task[],
+    onSelect?: (task: Task) => void;
 }
 
 
@@ -19,7 +19,7 @@ export const TableTask = ({ tasks, onSelect }: TableTaskProps) => {
     }
 
     return (
-        <Table className="w-full border border-border rounded-xl overflow-hidden">
+        <Table className="w-full table-auto border border-border rounded-xl overflow-hidden">
             <TableHeader>
                 <TableRow className="h-14 bg-muted border-white">
                     <TableHead className="w-10 text-xl font-bold">Código</TableHead>
@@ -31,11 +31,11 @@ export const TableTask = ({ tasks, onSelect }: TableTaskProps) => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {tasks.map((item) =>
+                {tasks?.map((item) =>
                     <TableRow
                         key={item.id}
                         className={activeIssueId && activeIssueId === item.id ? "bg-gray-50 border-l-4 border-blue-400 opacity-25 cursor-pointer border-b-white " : "h-12 border-white cursor-pointer"}
-                        onClick={() => { onSelect(item) }
+                        onClick={() => { onSelect!(item) }
                         }
                     >
                         <TableCell className="font-medium">{item.codigo}</TableCell>
