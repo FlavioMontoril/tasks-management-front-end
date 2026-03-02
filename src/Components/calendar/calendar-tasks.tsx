@@ -14,12 +14,12 @@ export function BigCalendar() {
     const eventCount = getTasksForRange(tasks, monthStart, monthEnd).length
 
     return (
-        <div className="flex w-full h-120 flex-col bg-background">
+        <div className="flex w-full h-120 flex-col bg-background rounded-2xl overflow-hidden">
             {/* Header */}
             <header className="flex items-center justify-between border-b border-border px-4 py-3 sm:px-6">
                 <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2 rounded-lg bg-muted px-3 py-1.5">
-                        <CalendarIcon className="size-4 text-muted-foreground" />
+                        <CalendarIcon className="size-4 text-muted-foreground " />
                         <span className="text-xs font-semibold uppercase text-muted-foreground">
                             {format(currentDate, "MMM")}
                         </span>
