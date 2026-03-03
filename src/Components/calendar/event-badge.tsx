@@ -1,5 +1,5 @@
 import { Info } from "lucide-react"
-import type { Task } from "../../mock/tasks"
+import { TaskStatus, type Task } from "../../mock/tasks"
 
 
 interface EventBadgeProps {
@@ -10,11 +10,11 @@ export function TaskBadge({ task }: EventBadgeProps) {
 
     function getColor() {
         switch (task.status) {
-            case "Done":
+            case TaskStatus.DONE:
                 return "bg-green-100 text-green-700"
-            case "In Progress":
+            case TaskStatus.IN_PROGRESS:
                 return "bg-blue-100 text-blue-700"
-            case "Canceled":
+            case TaskStatus.CANCELED:
                 return "bg-red-100 text-red-700"
             default:
                 return "bg-orange-100 text-orange-700"

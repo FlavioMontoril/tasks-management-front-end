@@ -3,19 +3,24 @@ import type { Task } from "../mock/tasks"
 import { useStopWatch } from "../store/useStopWatch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
 import { Button } from "./ui/button";
+import { format } from "date-fns";
+import { EmptyTasks } from "./empty-task";
 
 type TableTaskProps = {
     tasks?: Task[],
     onSelect?: (task: Task) => void;
 }
 
-
-export const TableTask = ({ tasks, onSelect }: TableTaskProps) => {
+export const TableTask = ({ tasks = [], onSelect }: TableTaskProps) => {
     const { setActiveIssue, isRunning, activeIssueId } = useStopWatch()
 
     const handleSelectTask = (e: React.MouseEvent<HTMLButtonElement>, id: string, time: number) => {
         e.stopPropagation()
         setActiveIssue(id, time)
+    }
+
+    if (!tasks || tasks.length === 0) {
+        return <EmptyTasks />
     }
 
     return (
@@ -40,13 +45,13 @@ export const TableTask = ({ tasks, onSelect }: TableTaskProps) => {
                     >
                         <TableCell className="font-medium">{item.codigo}</TableCell>
                         <TableCell className="pl-10">{item.nome}</TableCell>
-                        <TableCell>{item.dataCriacao}</TableCell>
+                        <TableCell>{format(new Date(item.dataCriacao), "dd/MM/yyyy HH:mm")}</TableCell>
                         <TableCell>{item.status}</TableCell>
                         <TableCell className="w-45">
                             {!isRunning && (
                                 <Button
                                     variant={"ghost"}
-                                    onClick={(e) => handleSelectTask(e, item.id, item.timeSeconds)} >
+                                    onClick={(e) => handleSelectTask(e, item.id, item.timeSeconds!)} >
                                     <Timer color="gray" />
                                 </Button>
                             )}

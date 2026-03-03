@@ -1,8 +1,8 @@
-import { tasks } from "../mock/tasks"
 import { CheckCircle2, Clock, XCircle, ListTodo } from "lucide-react"
 import { DashboardCard } from "../Components/dashboard-card"
 import { StatusBadge } from "../Components/status-badge"
 import type { ElementType } from "react"
+import { useTaskStore } from "../store/use-task-store"
 
 
 interface CardProps {
@@ -13,6 +13,8 @@ interface CardProps {
     color?: "blue" | "green" | "yellow" | "red",
 }
 export default function Dashboard() {
+
+    const { tasks } = useTaskStore()
 
     function countByStatus(status: string) {
         return tasks.filter(t => t.status === status).length
@@ -34,7 +36,7 @@ export default function Dashboard() {
     ]
 
     const recentTasks = [...tasks]
-        .sort((a, b) => b.dataCriacao.localeCompare(a.dataCriacao))
+        .sort((a, b) => new Date(b.dataCriacao).getTime() - new Date(a.dataCriacao).getTime())
         .slice(0, 5)
 
     return (

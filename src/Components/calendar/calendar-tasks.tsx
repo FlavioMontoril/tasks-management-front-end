@@ -4,10 +4,11 @@ import { useState } from "react"
 import { Button } from "../ui/button"
 import { formatMonthYear, getDateRangeLabel, getTasksForRange, navigateMonth } from "../../lib/calendar-utils"
 import { MonthView } from "./month-view"
-import { tasks } from "../../mock/tasks"
+import { useTaskStore } from "../../store/use-task-store"
 
 export function BigCalendar() {
     const [currentDate, setCurrentDate] = useState(new Date())
+    const { tasks } = useTaskStore()
 
     const monthStart = startOfMonth(currentDate)
     const monthEnd = endOfMonth(currentDate)
