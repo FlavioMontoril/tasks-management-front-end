@@ -14,7 +14,7 @@ export function AccordionTask({ tasks }: { tasks: Task[] }) {
                     </AccordionTrigger>
                     <AccordionContent className="px-4 bg-background">
                         <div className="flex flex-col gap-1 text-sm text-muted-foreground">
-                            <span>Criado em: {item.dataCriacao}</span>
+                            <span>Criado em: {item.dataCriacao.toLocaleString()}</span>
                             <span>Status: {item.status}</span>
                         </div>
                     </AccordionContent>

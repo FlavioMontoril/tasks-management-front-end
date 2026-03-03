@@ -1,10 +1,11 @@
-import { endOfDay, parseISO, startOfDay } from "date-fns"
+import { endOfDay, startOfDay } from "date-fns"
 import { useMemo, useState, type ChangeEvent } from "react"
-// import type { DateRange } from "react-day-picker"
-import { tasks } from "../mock/tasks"
 import type { DateRange } from "react-day-picker";
+import { useTaskStore } from "../store/use-task-store";
 
 export function useFilteredPagination() {
+
+    const { tasks } = useTaskStore()
 
     const [page, setPage] = useState(1)
     const [search, setSearch] = useState("");
@@ -32,7 +33,8 @@ export function useFilteredPagination() {
 
             let matchDate = true
             if (dateRange) {
-                const taskDate = parseISO(task.dataCriacao)
+                // const taskDate = parseISO(task.dataCriacao)
+                const taskDate = task.dataCriacao
                 const from = startOfDay(dateRange.from!)
                 const to = endOfDay(dateRange.to!)
 
@@ -43,7 +45,7 @@ export function useFilteredPagination() {
             return matchText && matchDate
         })
 
-    }, [search, dateRange]);
+    }, [search, dateRange, tasks]);
 
     // paginação
     const itemsPerPage = 10;
