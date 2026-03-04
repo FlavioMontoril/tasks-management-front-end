@@ -131,7 +131,7 @@ export function AppSidebar() {
                             <DropdownMenuTrigger asChild>
                                 <SidebarMenuButton size="lg" className="gap-3 ">
                                     <Avatar className="h-8 w-8 rounded-lg bg-muted-foreground">
-                                        <AvatarImage src="/src/assets/portfolio.png" />
+                                        <AvatarImage src="/portfolio.png" />
                                         <AvatarFallback>FM</AvatarFallback>
                                     </Avatar>
                                     <div className="flex flex-col text-left text-sm leading-tight ">
