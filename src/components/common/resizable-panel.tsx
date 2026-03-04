@@ -19,6 +19,8 @@ import type { Task } from "../../mock/tasks";
 import TaskNode from "../task-node";
 import { Button } from "../ui/button";
 import { SheetCreateTask } from "../sheet-create-task";
+import { EmptyTasks } from "../empty-task";
+import { useTaskStore } from "../../store/use-task-store";
 
 export function ResizablePanelView() {
   const {
@@ -32,17 +34,18 @@ export function ResizablePanelView() {
     totalPages,
   } = useFilteredPagination();
 
+  const { tasks } = useTaskStore();
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false)
+  const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
   const [isTableView, setIsTableView] = useState(() => {
     const saved = localStorage.getItem("viewMode");
     return saved ? saved === "table" : true;
   });
 
   const handleChangeSheet = () => {
-    setIsOpenSheet(true)
-  }
+    setIsOpenSheet(true);
+  };
 
   const handleToggle = (value: boolean) => {
     setIsTableView(value);
@@ -56,6 +59,13 @@ export function ResizablePanelView() {
     return () => clearTimeout(timer);
   }, [paginatedData]);
 
+  if (!tasks || tasks.length === 0) {
+    return (
+      <div  className="flex items-center justify-center min-h-screen">
+        <EmptyTasks />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -107,7 +117,6 @@ export function ResizablePanelView() {
                       <SkeletonTable />
                     ) : (
                       <>
-                        {console.log("paginatedData:", paginatedData)}
                         <TableTask
                           onSelect={setSelectedTask}
                           tasks={paginatedData}
@@ -146,10 +155,7 @@ export function ResizablePanelView() {
           </>
         )}
       </ResizablePanelGroup>
-      <SheetCreateTask
-        onOpenChange={setIsOpenSheet}
-        isOpen={isOpenSheet}
-      />
+      <SheetCreateTask onOpenChange={setIsOpenSheet} isOpen={isOpenSheet} />
     </>
   );
 }
