@@ -22,11 +22,11 @@ import {
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
-} from "../Components/ui/sidebar"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../Components/ui/collapsible"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../Components/ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "../Components/ui/avatar"
-import { Separator } from "../Components/ui/separator"
+} from "../components/ui/sidebar"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../components/ui/collapsible"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
+import { Separator } from "../components/ui/separator"
 
 export function AppSidebar() {
     return (

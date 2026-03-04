@@ -10,6 +10,7 @@ export function BigCalendar() {
     const [currentDate, setCurrentDate] = useState(new Date())
     const { tasks } = useTaskStore()
 
+    console.log("Tasks", tasks)
     const monthStart = startOfMonth(currentDate)
     const monthEnd = endOfMonth(currentDate)
     const eventCount = getTasksForRange(tasks, monthStart, monthEnd).length

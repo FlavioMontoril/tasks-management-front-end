@@ -1,5 +1,5 @@
 
-import { ResizablePanelView } from "../Components/common/resizable-panel";
+import { ResizablePanelView } from "../components/common/resizable-panel";
 
 export default function Home() {
 

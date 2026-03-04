@@ -1,5 +1,5 @@
-import { BigCalendar } from "../Components/calendar/calendar-tasks"
-import { Text } from "../Components/common/text"
+import { BigCalendar } from "../components/calendar/calendar-tasks"
+import { Text } from "../components/common/text"
 
 export default function CalendarTasks() {
     console.log("Calendar")

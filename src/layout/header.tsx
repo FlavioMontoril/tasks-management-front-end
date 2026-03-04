@@ -1,6 +1,6 @@
 // import { Bell, User } from "lucide-react"
-import { Text } from "../Components/common/text"
-import { NavigationMenuDemo } from "../Components/common/navigation-menu-demo"
+import { Text } from "../components/common/text"
+import { NavigationMenuDemo } from "../components/common/navigation-menu-demo"
 
 export const Header = () => {
     return (

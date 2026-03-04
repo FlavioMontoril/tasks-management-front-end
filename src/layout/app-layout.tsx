@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowBigRightDash, MoveUp } from "lucide-react";
 import { formatTimeSeconds } from "../lib/format-time-seconds";
-import { DialogStopwatchButton } from "../Components/common/dialog-stopwatch-button";
-import { SidebarInset } from "../Components/ui/sidebar";
+import { DialogStopwatchButton } from "../components/common/dialog-stopwatch-button";
+import { SidebarInset } from "../components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
-import { useSidebar } from "../Components/ui/sidebar"
-import { Separator } from "../Components/ui/separator";
+import { useSidebar } from "../components/ui/sidebar"
+import { Separator } from "../components/ui/separator";
 
 export default function AppLayout() {
 

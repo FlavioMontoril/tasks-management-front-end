@@ -1,6 +1,6 @@
 import { CheckCircle2, Clock, XCircle, ListTodo } from "lucide-react"
-import { DashboardCard } from "../Components/dashboard-card"
-import { StatusBadge } from "../Components/status-badge"
+import { DashboardCard } from "../components/dashboard-card"
+import { StatusBadge } from "../components/status-badge"
 import type { ElementType } from "react"
 import { useTaskStore } from "../store/use-task-store"
 

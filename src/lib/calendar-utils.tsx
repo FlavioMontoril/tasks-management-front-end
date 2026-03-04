@@ -11,7 +11,7 @@ import {
     subMonths,
 } from "date-fns"
 import { ptBR } from "date-fns/locale"
-import { parseISO, isSameDay, isWithinInterval } from "date-fns"
+import { isSameDay, isWithinInterval } from "date-fns"
 import type { Task } from "../mock/tasks"
 
 export { isSameMonth, isToday, format, startOfMonth, endOfMonth }
@@ -25,7 +25,7 @@ export function getMonthDays(date: Date): Date[] {
 
 export function getTasksForDay(tasks: Task[], day: Date): Task[] {
     return tasks.filter(task =>
-        isSameDay(parseISO(task.dataCriacao), day)
+        isSameDay(task.dataCriacao, day)
     )
 }
 
@@ -35,7 +35,7 @@ export function getTasksForRange(
     end: Date
 ): Task[] {
     return tasks.filter(task =>
-        isWithinInterval(parseISO(task.dataCriacao), { start, end })
+        isWithinInterval(task.dataCriacao, { start, end })
     )
 }
 
