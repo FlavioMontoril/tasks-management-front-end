@@ -1,18 +1,23 @@
-import { BigCalendar } from "../components/calendar/calendar-tasks"
-import { Text } from "../components/common/text"
+import React from "react";
+import { Text } from "../components/common/text";
+
+const BigCalendar = React.lazy(() =>
+  import("../components/calendar/calendar-tasks").then((module) => ({
+    default: module.BigCalendar,
+  })),
+);
 
 export default function CalendarTasks() {
-    console.log("Calendar")
-    return (
-        <div className="flex flex-col space-y-20">
-            <Text
-                as="h1"
-                variant="muted"
-                className=" font-bold text-4xl text-muted-foreground"
-            >
-                Calendar
-            </Text>
-            <BigCalendar />
-        </div>
-    )
+  return (
+    <div className="flex flex-col space-y-20">
+      <Text
+        as="h1"
+        variant="muted"
+        className=" font-bold text-4xl text-muted-foreground"
+      >
+        Calendar
+      </Text>
+      <BigCalendar />
+    </div>
+  );
 }
