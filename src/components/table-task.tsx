@@ -4,7 +4,6 @@ import { useStopWatch } from "../store/useStopWatch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
 import { Button } from "./ui/button";
 import { format } from "date-fns";
-import { EmptyTasks } from "./empty-task";
 
 type TableTaskProps = {
     tasks?: Task[],
@@ -17,10 +16,6 @@ export const TableTask = ({ tasks = [], onSelect }: TableTaskProps) => {
     const handleSelectTask = (e: React.MouseEvent<HTMLButtonElement>, id: string, time: number) => {
         e.stopPropagation()
         setActiveIssue(id, time)
-    }
-
-    if (!tasks || tasks.length === 0) {
-        return <EmptyTasks />
     }
 
     return (

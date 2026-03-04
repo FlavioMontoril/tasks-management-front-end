@@ -8,8 +8,16 @@ import {
   EmptyTitle,
 } from "./ui/empty";
 import { Button } from "./ui/button";
+import { SheetCreateTask } from "./sheet-create-task";
+import { useState } from "react";
 
 export function EmptyTasks() {
+  const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
+
+  const handleChangeSheet = () => {
+    setIsOpenSheet(true);
+  };
+
   return (
     <Empty>
       <EmptyHeader>
@@ -18,11 +26,12 @@ export function EmptyTasks() {
         </EmptyMedia>
         <EmptyTitle>Sem tarefas</EmptyTitle>
         <EmptyDescription>
-          Você ainda não criou nenhuma tarefa. Comece criando a sua primeira tarefa.
+          Você ainda não criou nenhuma tarefa. Comece criando a sua primeira
+          tarefa.
         </EmptyDescription>
       </EmptyHeader>
       <EmptyContent className="flex-row justify-center gap-2">
-        <Button>Criar</Button>
+        <Button onClick={() => handleChangeSheet()}>Criar</Button>
       </EmptyContent>
       {/* <Button
         variant="link"
@@ -34,6 +43,8 @@ export function EmptyTasks() {
           Learn More <ArrowUpRightIcon />
         </a>
       </Button> */}
+
+      <SheetCreateTask onOpenChange={setIsOpenSheet} isOpen={isOpenSheet} />
     </Empty>
   );
 }
