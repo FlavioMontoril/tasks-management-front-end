@@ -31,9 +31,9 @@ import { Separator } from "../components/ui/separator"
 export function AppSidebar() {
     return (
         <Sidebar
-        collapsible="offcanvas"
+            collapsible="offcanvas"
         //  collapsible="icon"
-         >
+        >
 
             {/* ===== HEADER ===== */}
             <SidebarContent className="bg-gray-900 ">
@@ -60,7 +60,7 @@ export function AppSidebar() {
                     <SidebarMenu className="text-muted">
                         <SidebarMenuItem>
                             <SidebarMenuButton asChild>
-                                <Link to="/">
+                                <Link to="/home">
                                     <Home />
                                     Home
                                 </Link>
