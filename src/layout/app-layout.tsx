@@ -10,6 +10,7 @@ import { AppSidebar } from "./AppSidebar";
 import { useSidebar } from "../components/ui/sidebar";
 import { Separator } from "../components/ui/separator";
 import { BreadcrumbSeparatorDemo } from "../components/common/breadcrumb-separator";
+// import { SplashScreen } from "./splash-screen";
 
 export default function AppLayout() {
   const { open, setOpen } = useSidebar();
@@ -20,6 +21,14 @@ export default function AppLayout() {
   const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(
     null,
   );
+
+  // const [showSplash, setShowSplash] = useState(true); // sempre começa mostrando
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => setShowSplash(true), 1500);
+  //   return () => clearTimeout(timer);
+  // }, []);
+
 
   //Alerta ao fechar ou atualizar a pagina
   useEffect(() => {
@@ -47,6 +56,10 @@ export default function AppLayout() {
 
     return () => clearInterval(interval); // cleanup ao desmontar (nunca vai desmontar enquanto AppLayout estiver ativo)
   }, [isRunning, tick]);
+
+  // if (showSplash) {
+  //   return <SplashScreen />;
+  // }
 
   return (
     <>

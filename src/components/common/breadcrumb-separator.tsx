@@ -15,7 +15,7 @@ export function BreadcrumbSeparatorDemo() {
             <BreadcrumbList>
                 <BreadcrumbItem>
                     <BreadcrumbLink asChild>
-                        <Link to="/" className={isActive("/") ? "text-white font-semibold" : "text-muted-foreground"}>
+                        <Link to="/home" className={isActive("/home") ? "text-white font-semibold" : "text-muted-foreground"}>
                             Home
                         </Link>
                     </BreadcrumbLink>
