@@ -35,6 +35,8 @@ export function ResizablePanelView() {
   } = useFilteredPagination();
 
   const { tasks } = useTaskStore();
+
+  const [isMobile, setIsMobile] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
@@ -53,6 +55,17 @@ export function ResizablePanelView() {
   };
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
@@ -61,7 +74,7 @@ export function ResizablePanelView() {
 
   if (!tasks || tasks.length === 0) {
     return (
-      <div  className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen">
         <EmptyTasks />
       </div>
     );
@@ -70,13 +83,18 @@ export function ResizablePanelView() {
   return (
     <>
       <ResizablePanelGroup
-        orientation="horizontal"
-        className="min-h-50 w-full rounded-lg md:min-w-310 "
+        orientation={isMobile ? "vertical" : "horizontal"}
+        className="w-full rounded-lg"
+        // orientation="horizontal"
+        // className="min-h-50 w-full rounded-lg md:min-w-310 "
       >
         <ResizablePanel defaultSize={selectedTask ? 40 : 100}>
           <div className="flex h-full ">
             <div className="flex flex-col space-y-20 w-full">
-              <div className="flex justify-between items-center">
+              <div
+                className="flex flex-col md:flex-row md:items-center gap-4 justify-between"
+                // className="flex justify-between items-center"
+              >
                 <Text
                   as="h1"
                   variant="muted"
@@ -93,13 +111,17 @@ export function ResizablePanelView() {
                 <SwitchDemo isTableView={isTableView} onToggle={handleToggle} />
               </div>
               <div className="space-y-3">
-                <div className="flex justify-between">
+                <div
+                  className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between"
+                  //  className="flex justify-between"
+                >
                   <div className="relative flex items-center">
                     <Search className="absolute ml-1" size={18} color="gray" />
                     <Input
                       onChange={handleSearch}
                       value={search}
-                      className="w-70 h-7 pl-7 bg-background"
+                      className="w-full md:w-70 h-9 pl-7 bg-background"
+                      // className="w-70 h-7 pl-7 bg-background"
                       type="text"
                       placeholder="Pesquise pelo codigo ou nome..."
                     />
@@ -112,7 +134,10 @@ export function ResizablePanelView() {
                   </div>
                 </div>
                 {isTableView ? (
-                  <div className="max-h-90 mb-12 overflow-y-auto pr-1 ">
+                  <div
+                  className="max-h-[60vh] md:max-h-90 mb-12 overflow-y-auto pr-1 "
+                  // className="max-h-90 mb-12 overflow-y-auto pr-1 "
+                  >
                     {isLoading ? (
                       <SkeletonTable />
                     ) : (

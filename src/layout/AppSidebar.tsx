@@ -30,7 +30,10 @@ import { Separator } from "../components/ui/separator"
 
 export function AppSidebar() {
     return (
-        <Sidebar collapsible="icon">
+        <Sidebar
+        collapsible="offcanvas"
+        //  collapsible="icon"
+         >
 
             {/* ===== HEADER ===== */}
             <SidebarContent className="bg-gray-900 ">
