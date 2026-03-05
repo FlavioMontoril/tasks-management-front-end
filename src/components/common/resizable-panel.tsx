@@ -84,16 +84,18 @@ export function ResizablePanelView() {
     <>
       <ResizablePanelGroup
         orientation={isMobile ? "vertical" : "horizontal"}
-        className="w-full rounded-lg"
-        // orientation="horizontal"
-        // className="min-h-50 w-full rounded-lg md:min-w-310 "
+        className="w-full h-full min-h-125 rounded-lg"
+
+      // className="w-full rounded-lg"
+      // orientation="horizontal"
+      // className="min-h-50 w-full rounded-lg md:min-w-310 "
       >
         <ResizablePanel defaultSize={selectedTask ? 40 : 100}>
           <div className="flex h-full ">
             <div className="flex flex-col space-y-20 w-full">
               <div
                 className="flex flex-col md:flex-row md:items-center gap-4 justify-between"
-                // className="flex justify-between items-center"
+              // className="flex justify-between items-center"
               >
                 <Text
                   as="h1"
@@ -113,7 +115,7 @@ export function ResizablePanelView() {
               <div className="space-y-3">
                 <div
                   className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between"
-                  //  className="flex justify-between"
+                //  className="flex justify-between"
                 >
                   <div className="relative flex items-center">
                     <Search className="absolute ml-1" size={18} color="gray" />
@@ -135,7 +137,7 @@ export function ResizablePanelView() {
                 </div>
                 {isTableView ? (
                   <div
-                  className="max-h-[60vh] md:max-h-90 mb-12 overflow-y-auto pr-1 "
+                    className="max-h-[60vh] md:max-h-90 mb-12 overflow-y-auto pr-1 "
                   // className="max-h-90 mb-12 overflow-y-auto pr-1 "
                   >
                     {isLoading ? (
