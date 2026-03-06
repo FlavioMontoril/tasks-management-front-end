@@ -3,6 +3,7 @@ import { DashboardCard } from "../components/dashboard-card"
 import { StatusBadge } from "../components/status-badge"
 import type { ElementType } from "react"
 import { useTaskStore } from "../store/use-task-store"
+import { TaskStatus } from "../mock/tasks"
 
 
 interface CardProps {
@@ -16,15 +17,15 @@ export default function Dashboard() {
 
     const { tasks } = useTaskStore()
 
-    function countByStatus(status: string) {
+    function countByStatus(status: TaskStatus) {
         return tasks.filter(t => t.status === status).length
     }
 
     const total = tasks.length
-    const open = countByStatus("Open")
-    const progress = countByStatus("In Progress")
-    const done = countByStatus("Done")
-    const canceled = countByStatus("Canceled")
+    const open = countByStatus(TaskStatus.OPEN)
+    const progress = countByStatus(TaskStatus.IN_PROGRESS)
+    const done = countByStatus(TaskStatus.DONE)
+    const canceled = countByStatus(TaskStatus.CANCELED)
 
 
     const cardProps: CardProps[] = [

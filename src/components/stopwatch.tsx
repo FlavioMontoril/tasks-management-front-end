@@ -3,7 +3,7 @@ import { Play, Pause, MoveUp } from "lucide-react";
 import { useStopWatch } from "../store/useStopWatch";
 import { formatTimeSeconds } from "../lib/format-time-seconds";
 
-export function StopWatch() {
+export function Stopwatch() {
 
     const {
         activeIssueId,
@@ -15,16 +15,26 @@ export function StopWatch() {
         tick,
     } = useStopWatch();
 
-
     useEffect(() => {
         if (!isRunning) return;
-
+        // Interval normal para atualizar o display
         const interval = setInterval(() => {
             tick();
         }, 1000);
+        // Escuta quando a aba mudar de visibilidade, ao voltar para a aba/false, força sync imediato
+        const handleVisibilityChange = () => {
+            if (!document.hidden) tick();
+        };
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+        // Cleanup automático do React, Impede múltiplos timers e listeners
+        return () => {
+            clearInterval(interval);
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+        };
 
-        return () => clearInterval(interval);
     }, [isRunning, tick]);
+
+    // if (!isRunning) return;
 
     const remainingTime = initialTime - elapsedSeconds;
     const workedTime = Math.max(0, elapsedSeconds);
@@ -81,6 +91,7 @@ export function StopWatch() {
                         </svg>
                         <span className="absolute inset-0 flex items-center justify-center">
                             <button
+                                onPointerDown={(e) => e.stopPropagation()}
                                 onClick={handlePause}
                                 className="flex items-center justify-center h-6 w-6 rounded-md bg-warning text-white hover:opacity-90 transition-opacity active:scale-95"
                                 aria-label="Pausar"
@@ -91,6 +102,7 @@ export function StopWatch() {
                     </div>
                 ) : (
                     <button
+                        onPointerDown={(e) => e.stopPropagation()}
                         onClick={handleStart}
                         className="flex items-center justify-center h-8 w-8 rounded-md bg-gray-600 text-primary-foreground hover:opacity-90 transition-opacity active:scale-95"
                         aria-label="Iniciar"
