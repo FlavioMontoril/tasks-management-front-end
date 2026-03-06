@@ -35,14 +35,30 @@ export const useStopWatch = create<ClockProps>()(
 
             startTimer: () => {
                 const now = Date.now();
-                const { activeIssueId } = get();
+                const { activeIssueId, elapsedSeconds } = get();
                 if (!activeIssueId) return;
 
                 set({
-                    startDateTime: now,
                     isRunning: true,
-                    elapsedSeconds: 0,
+                    startDateTime: now - elapsedSeconds * 1000, //continua com o tempo pausado
+                    // startDateTime: now,
+                    // elapsedSeconds: 0,
                 });
+            },
+
+            pauseTimer: () => {
+                const { startDateTime, isRunning } = get();
+
+                if (isRunning && startDateTime) {
+                    const elapsed = Math.floor((Date.now() - startDateTime) / 1000);
+                    set({
+                        // activeIssueId: null,
+                        // initialTime: 0,
+                        // elapsedSeconds: 0,
+                        elapsedSeconds: elapsed, // salva o tempo atuals
+                        isRunning: false,
+                    });
+                }
             },
 
             tick: () => {
@@ -53,19 +69,6 @@ export const useStopWatch = create<ClockProps>()(
                 }
             },
 
-            pauseTimer: () => {
-                const { startDateTime, isRunning } = get();
-
-                if (isRunning && startDateTime) {
-                    // const elapsed = Math.floor((Date.now() - startDateTime) / 1000);
-                    set({
-                        activeIssueId: null,
-                        initialTime: 0,
-                        elapsedSeconds: 0,
-                        isRunning: false,
-                    });
-                }
-            },
 
             reset: () =>
                 set({

@@ -1,70 +1,21 @@
 import { Outlet } from "react-router-dom";
 import { useStopWatch } from "../store/useStopWatch";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowBigRightDash, MoveUp } from "lucide-react";
-import { formatTimeSeconds } from "../lib/format-time-seconds";
-import { DialogStopwatchButton } from "../components/common/dialog-stopwatch-button";
+import { ArrowBigRightDash } from "lucide-react";
 import { SidebarInset, SidebarTrigger } from "../components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { useSidebar } from "../components/ui/sidebar";
 import { Separator } from "../components/ui/separator";
 import { BreadcrumbSeparatorDemo } from "../components/common/breadcrumb-separator";
-// import { SplashScreen } from "./splash-screen";
+import { DraggableStopwatch } from "../components/draggable-stopwatch";
 
 export default function AppLayout() {
   const { open, setOpen } = useSidebar();
-  const { activeIssueId, elapsedSeconds, isRunning, tick } = useStopWatch();
-  // const [minimized, setMinimized] = useState(false);
-  const [openWindow, setOpenWindow] = useState(false);
-  // const { isRunning, tick } = useStopWatch();
-  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(
-    null,
-  );
-
-  // const [showSplash, setShowSplash] = useState(true); // sempre começa mostrando
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => setShowSplash(true), 1500);
-  //   return () => clearTimeout(timer);
-  // }, []);
-
-
-  //Alerta ao fechar ou atualizar a pagina
-  useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      if (isRunning) {
-        event.preventDefault();
-        event.returnValue = "";
-      }
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [isRunning]);
-
-  // Permite que o contador progressivo continue em tempo real enquanto estiver play
-  useEffect(() => {
-    if (!isRunning) return; // só roda se estiver ativo
-
-    const interval = setInterval(() => {
-      tick(); // atualiza o tempo
-    }, 1000);
-
-    return () => clearInterval(interval); // cleanup ao desmontar (nunca vai desmontar enquanto AppLayout estiver ativo)
-  }, [isRunning, tick]);
-
-  // if (showSplash) {
-  //   return <SplashScreen />;
-  // }
+  const { activeIssueId } = useStopWatch();
 
   return (
     <>
       <AppSidebar />
-      <SidebarInset className="min-h-screen w-full flex flex-col bg-gray-900 transition-all duration-900 ease-in-out">
+      <SidebarInset className="min-h-screen w-full flex flex-col bg-gray-900 transition-all duration-900 ease-in-out relative">
         <div
           className="flex items-center h-10 px-2 md:px-0"
         //   className="flex items-center h-10 "
@@ -103,37 +54,8 @@ export default function AppLayout() {
         </main>
 
         {activeIssueId && (
-          <motion.button
-            drag
-            dragMomentum={false}
-            onPointerDown={(e) => {
-              setDragStart({ x: e.clientX, y: e.clientY });
-            }}
-            onPointerUp={(e) => {
-              if (!dragStart) return;
-
-              const dx = e.clientX - dragStart.x;
-              const dy = e.clientY - dragStart.y;
-
-              const distance = Math.hypot(dx, dy);
-
-              if (distance < 6) {
-                setOpenWindow(true);
-              }
-            }}
-            className="fixed z-50 bottom-170 right-50 px-3 py-3 bg-black text-white cursor-grab active:cursor-grabbing rounded-full"
-          >
-            <span className="flex gap-2 items-center font-mono text-sm tabular-nums tracking-tight text-emerald-400">
-              <MoveUp size={14} />
-              {formatTimeSeconds(elapsedSeconds)}
-            </span>
-          </motion.button>
+          <DraggableStopwatch id={activeIssueId} />
         )}
-
-        <DialogStopwatchButton
-          isView={openWindow}
-          onChangeView={setOpenWindow}
-        />
       </SidebarInset>
     </>
   );

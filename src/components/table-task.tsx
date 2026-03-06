@@ -12,7 +12,8 @@ type TableTaskProps = {
 
 export const TableTask = ({ tasks = [], onSelect }: TableTaskProps) => {
     const { setActiveIssue, isRunning, activeIssueId } = useStopWatch()
-
+    console.log("Is Active", activeIssueId)
+    console.log("Is Running", isRunning)
     const handleSelectTask = (e: React.MouseEvent<HTMLButtonElement>, id: string, time: number) => {
         e.stopPropagation()
         setActiveIssue(id, time)
