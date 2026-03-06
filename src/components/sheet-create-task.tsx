@@ -39,10 +39,10 @@ export function SheetCreateTask({ isOpen, onOpenChange }: SheetProps) {
             open={isOpen}
             onOpenChange={onOpenChange}
         >
-            <SheetContent className="bg-gray-950" >
+            <SheetContent className="bg-[#456882]  rounded-2xl h-auto max-h-[95vh]  my-auto mr-4" >
                 <SheetHeader>
                     <SheetTitle className="text-muted">Criar Tarefa</SheetTitle>
-                    <SheetDescription>
+                    <SheetDescription className="text-foreground">
                         Crie tarefas aqui. Clique em Salvar quando terminar.
                     </SheetDescription>
                 </SheetHeader>
@@ -52,21 +52,21 @@ export function SheetCreateTask({ isOpen, onOpenChange }: SheetProps) {
                     className="grid flex-1 auto-rows-min gap-6 px-4">
                     <div className="grid gap-3">
                         <Label className="text-muted" htmlFor="codigo" >Código</Label>
-                        <Input className="text-muted-foreground" id="codigo" placeholder="..."
+                        <Input className="text-foreground placeholder:text-foreground" id="codigo" placeholder="..."
                             {...register("codigo")}
                         />
                         {errors.codigo && <span className="text-red-500 text-sm">{errors.codigo.message}</span>}
                     </div>
                     <div className="grid gap-3">
                         <Label className="text-muted" htmlFor="nome" >Nome</Label>
-                        <Input className="text-muted-foreground" id="nome" placeholder="..."
+                        <Input className="text-foreground placeholder:text-foreground" id="nome" placeholder="..."
                             {...register("nome")}
                         />
                         {errors.nome && <span className="text-red-500 text-sm">{errors.nome.message}</span>}
                     </div>
                     <div className="grid gap-3">
                         <Label className="text-muted" htmlFor="tempo" >Tempo</Label>
-                        <Input type="number" className="text-muted-foreground" id="timeSeconds" placeholder="segundos"
+                        <Input className="text-foreground placeholder:text-foreground" id="timeSeconds" placeholder="segundos"
                             {...register("timeSeconds", { valueAsNumber: true })}
                         />
                     </div>
