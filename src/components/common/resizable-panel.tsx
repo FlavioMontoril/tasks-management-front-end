@@ -3,13 +3,10 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "../ui/resizable";
-import { Search } from "lucide-react";
 
 import { useEffect, useState } from "react";
 import { Text } from "./text";
 import { SwitchDemo } from "./switch-demo";
-import { Input } from "../ui/input";
-import { DatePickerWithRange } from "./date-picker-with-range";
 import { SkeletonTable } from "../skeleton-table";
 import { TableTask } from "../table-task";
 import { AccordionTask } from "../accordion-task";
@@ -21,13 +18,11 @@ import { Button } from "../ui/button";
 import { SheetCreateTask } from "../sheet-create-task";
 import { EmptyTasks } from "../empty-task";
 import { useTaskStore } from "../../store/use-task-store";
+import { TaskToolbar } from "./task-toolbar";
+import { useIsMobile } from "../../hooks/use-mobile";
 
 export function ResizablePanelView() {
   const {
-    search,
-    dateRange,
-    handleDateSearch,
-    handleSearch,
     page,
     paginatedData,
     setPage,
@@ -36,7 +31,8 @@ export function ResizablePanelView() {
 
   const { tasks } = useTaskStore();
 
-  const [isMobile, setIsMobile] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useIsMobile();
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isOpenSheet, setIsOpenSheet] = useState<boolean>(false);
@@ -54,16 +50,16 @@ export function ResizablePanelView() {
     localStorage.setItem("viewMode", value ? "table" : "accordion");
   };
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+  // useEffect(() => {
+  //   const checkMobile = () => {
+  //     setIsMobile(window.innerWidth < 768);
+  //   };
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
+  //   checkMobile();
+  //   window.addEventListener("resize", checkMobile);
 
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  //   return () => window.removeEventListener("resize", checkMobile);
+  // }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -113,28 +109,7 @@ export function ResizablePanelView() {
                 <SwitchDemo isTableView={isTableView} onToggle={handleToggle} />
               </div>
               <div className="space-y-3">
-                <div
-                  className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between"
-                //  className="flex justify-between"
-                >
-                  <div className="relative flex items-center">
-                    <Search className="absolute ml-1" size={18} color="gray" />
-                    <Input
-                      onChange={handleSearch}
-                      value={search}
-                      className="w-full md:w-70 h-9 pl-7 bg-background"
-                      // className="w-70 h-7 pl-7 bg-background"
-                      type="text"
-                      placeholder="Pesquise pelo codigo ou nome..."
-                    />
-                  </div>
-                  <div className="ml-5 text-muted-foreground">
-                    <DatePickerWithRange
-                      value={dateRange}
-                      onChange={handleDateSearch}
-                    />
-                  </div>
-                </div>
+                <TaskToolbar />
                 {isTableView ? (
                   <div
                     className="max-h-[60vh] md:max-h-90 mb-12 overflow-y-auto pr-1 "

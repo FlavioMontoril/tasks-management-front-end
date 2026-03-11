@@ -12,8 +12,7 @@ type TableTaskProps = {
 
 export const TableTask = ({ tasks = [], onSelect }: TableTaskProps) => {
     const { setActiveIssue, isRunning, activeIssueId } = useStopWatch()
-    console.log("Is Active", activeIssueId)
-    console.log("Is Running", isRunning)
+
     const handleSelectTask = (e: React.MouseEvent<HTMLButtonElement>, id: string, time: number) => {
         e.stopPropagation()
         setActiveIssue(id, time)
@@ -36,7 +35,7 @@ export const TableTask = ({ tasks = [], onSelect }: TableTaskProps) => {
                     <TableRow
                         key={item.id}
                         className={activeIssueId && activeIssueId === item.id ? "bg-gray-50 border-l-4 border-blue-400 opacity-25 cursor-pointer border-b-white " : "h-12 border-white cursor-pointer"}
-                        onClick={() => { onSelect!(item) }
+                        onClick={() => { onSelect?.(item) }
                         }
                     >
                         <TableCell className="font-medium">{item.codigo}</TableCell>
