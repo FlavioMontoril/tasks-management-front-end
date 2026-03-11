@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { TaskStatus, type Task } from "../mock/tasks";
+import { v4 as uuidv4 } from "uuid"
 
 type NewTaskInput = Omit<Task, "id" | "dataCriacao" | "status">;
 
@@ -21,7 +22,7 @@ export const useTaskStore = create<TaskStore>()(
                     const existsTask = state.tasks.some(item => item.codigo === task.codigo);
 
                     const newTask: Task = {
-                        id: crypto.randomUUID(),
+                        id: uuidv4(),
                         codigo: task.codigo,
                         nome: task.nome,
                         dataCriacao: new Date(),
