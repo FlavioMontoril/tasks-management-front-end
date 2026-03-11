@@ -1,0 +1,12 @@
+services:
+  frontend:
+    container_name: tasks-frontend
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "${VITE_PORT}:${VITE_PORT}"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev -- --host ${VITE_HOST} --port ${VITE_PORT}
