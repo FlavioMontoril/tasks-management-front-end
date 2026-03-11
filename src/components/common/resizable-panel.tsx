@@ -23,6 +23,10 @@ import { useIsMobile } from "../../hooks/use-mobile";
 
 export function ResizablePanelView() {
   const {
+    search,
+    handleSearch,
+    handleDateSearch,
+    dateRange,
     page,
     paginatedData,
     setPage,
@@ -109,7 +113,12 @@ export function ResizablePanelView() {
                 <SwitchDemo isTableView={isTableView} onToggle={handleToggle} />
               </div>
               <div className="space-y-3">
-                <TaskToolbar />
+                  <TaskToolbar
+                  search={search}
+                  dateRange={dateRange}
+                  onSearch={handleSearch}
+                  onDateChange={handleDateSearch}
+                />
                 {isTableView ? (
                   <div
                     className="max-h-[60vh] md:max-h-90 mb-12 overflow-y-auto pr-1 "
