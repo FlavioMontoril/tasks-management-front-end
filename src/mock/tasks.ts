@@ -5,7 +5,7 @@ export interface Task {
     id: string;
     codigo: string;
     nome: string;
-    dataCriacao: Date;
+    dataCriacao: Date | string;
     status: TaskStatus;
     timeSeconds?: number;
 }
