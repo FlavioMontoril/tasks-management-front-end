@@ -38,14 +38,14 @@ export default function Dashboard() {
 
     const recentTasks = [...tasks]
         .sort((a, b) => new Date(b.dataCriacao).getTime() - new Date(a.dataCriacao).getTime())
-        .slice(0, 5)
+        .slice(0, 6)
 
     return (
-        <div className="flex flex-col gap-3 w-full h-full overflow-hidden">
+        <div className="flex flex-col gap-3 w-full overflow-y-auto md:overflow-hidden min-h-screen">
 
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-bold">Dashboard</h1>
+                <h1 className="text-3xl text-muted-foreground font-bold">Dashboard</h1>
                 <p className="text-muted-foreground">
                     Visão geral das tarefas
                 </p>
@@ -66,13 +66,13 @@ export default function Dashboard() {
             </div>
 
             {/* Recent tasks */}
-            <div className="bg-muted/50 rounded-xl p-3 w-full flex flex-col flex-1 overflow-hidden">
+            <div className="bg-muted/50 rounded-xl p-3 w-full flex flex-col flex-1 overflow-y-auto md:overflow-hidden min-h-50 md:max-h-135 max-h-15">
 
                 <h2 className="font-semibold mb-4">
                     Tarefas recentes
                 </h2>
 
-                <div className="flex flex-col gap-3 overflow-hidden">
+                <div className="flex flex-col gap-3 md:overflow-hidden">
 
                     {recentTasks.map(task => (
                         <div
