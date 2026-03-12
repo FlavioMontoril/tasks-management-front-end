@@ -39,8 +39,8 @@ export function AppSidebar() {
             <SidebarContent className="bg-gray-900 ">
                 <SidebarHeader>
                     <div className="flex items-center gap-3 px-2 py-2">
-                        <div className="h-8 w-8 rounded bg-blue-600 flex items-center justify-center">
-                            <Command color="white" size={20} />
+                        <div className="flex items-center justify-center">
+                            <Command color="white" size={33} />
                         </div>
                         <div className="flex flex-col text-sm">
                             <span className="font-semibold text-muted">Tasks Management</span>
