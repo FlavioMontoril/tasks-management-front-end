@@ -25,9 +25,9 @@ export function TaskToolbar({
         <div className="relative flex items-center">
           <Search className="absolute ml-1" size={18} color="gray" />
           <Input
-            onChange={onSearch}
             value={search}
-            className="w-full md:w-70 h-9 pl-7 bg-background"
+            onChange={onSearch}
+            className="w-full md:w-70 h-7 pl-7 bg-background"
             // className="w-70 h-7 pl-7 bg-background"
             type="text"
             placeholder="Pesquise pelo codigo ou nome..."

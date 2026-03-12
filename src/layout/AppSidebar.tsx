@@ -27,11 +27,14 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../componen
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
 import { Separator } from "../components/ui/separator"
+import { useIsMobile } from "../hooks/use-mobile"
 
 export function AppSidebar() {
+
+    const isMobile = useIsMobile()
     return (
         <Sidebar
-            collapsible="offcanvas"
+            collapsible={isMobile ? "offcanvas":"icon"}
         //  collapsible="icon"
         >
 
@@ -39,8 +42,8 @@ export function AppSidebar() {
             <SidebarContent className="bg-gray-900 ">
                 <SidebarHeader>
                     <div className="flex items-center gap-3 px-2 py-2">
-                        <div className="flex items-center justify-center">
-                            <Command color="white" size={33} />
+                        <div className="h-8 w-8 rounded bg-foreground flex items-center justify-center">
+                            <Command color="white" size={20} />
                         </div>
                         <div className="flex flex-col text-sm">
                             <span className="font-semibold text-muted">Tasks Management</span>
