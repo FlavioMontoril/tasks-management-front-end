@@ -9,7 +9,7 @@ const BigCalendar = React.lazy(() =>
 
 export default function CalendarTasks() {
   return (
-    <div className="flex flex-col space-y-20">
+    <div className="flex flex-col space-y-7">
       <Text
         as="h1"
         variant="muted"

@@ -56,11 +56,10 @@ export function DraggableStopwatch({ id }: { id: string }) {
         if (!container) return;
 
         //Pega tamanho real do layout, nao deixa draggable ultrapassar
-        const containerRect = container.getBoundingClientRect();
         const elementRect = ref.current.getBoundingClientRect();
 
-        const maxX = containerRect.width - elementRect.width;
-        const maxY = containerRect.height - elementRect.height;
+        const maxX = window.innerWidth - elementRect.width;
+        const maxY = window.innerHeight - elementRect.height;
 
         setPosition((prev) => {
             const newX = prev.x + transform.x;
