@@ -2,6 +2,7 @@ services:
   frontend:
     container_name: tasks-frontend
     build: .
+    working_dir: /app
     env_file:
       - .env
     ports:
@@ -9,4 +10,3 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    command: npm run dev -- --host ${VITE_HOST} --port ${VITE_PORT}
